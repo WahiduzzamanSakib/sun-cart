@@ -15,7 +15,7 @@ import {
 import { useRouter } from "next/navigation";
 import { GrGoogle } from "react-icons/gr";
 import { toast } from "react-toastify";
-import { Divider } from "@heroui/react";
+
 
 export default function SignInPage() {
 
@@ -115,9 +115,6 @@ export default function SignInPage() {
                 </div>
             </Form>
 
-            <div className="w-full">
-                <Divider>OR</Divider>
-            </div>
 
             <Button onClick={handleGoogle} variant="outline" className="w-full">
                 <GrGoogle /> Sign in with Google
