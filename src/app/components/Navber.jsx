@@ -5,20 +5,23 @@ import logoimg from "../../../public/logo.png"
 import Link from 'next/link';
 import React from 'react';
 import "animate.css";
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { authClient } from '@/lib/auth-client';
 import { Avatar, Button } from '@heroui/react';
+
 
 
 
 const Navber = () => {
     const pathname = usePathname()
     const userData = authClient.useSession()
+    const router = useRouter()
     const user = userData.data?.user
 
     const handleSignOut = async () => {
         await authClient.signOut({
         });
+        router.push("/")
     }
 
 
