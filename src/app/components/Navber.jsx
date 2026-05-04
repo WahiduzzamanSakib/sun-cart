@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image';
+import logoimg from "../../../public/logo.png"
 import Link from 'next/link';
 import React from 'react';
 import "animate.css";
@@ -15,12 +16,13 @@ const Navber = () => {
     const normalClass = "font-bold px-2 py-1"
 
     return (
-        <div className="border-b px-2">
+        <div className="border-b px-2 bg-blue-400">
             <nav className="flex justify-between items-center py-3 max-w-7xl mx-auto w-full">
 
                 <div className="flex gap-2 items-center">
                     <Image
-                        src="/logo.png"
+                        // src="/logo.png"
+                        src={logoimg}
                         alt="logo"
                         loading="eager"
                         width={40}

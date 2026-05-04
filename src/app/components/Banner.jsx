@@ -4,7 +4,7 @@ import { Button } from "@heroui/react";
 
 const Banner = () => {
     return (
-        <div className="container mx-auto relative overflow-hidden rounded-lg shadow-2xl min-h-120 flex items-center">
+        <div className="container mx-auto relative overflow-hidden rounded-lg shadow-2xl min-h-120 flex items-center my-3">
             <Image
                 src="/banner.jpg"
                 alt="Summer Essentials Banner"

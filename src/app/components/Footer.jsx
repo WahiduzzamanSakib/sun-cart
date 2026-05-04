@@ -1,5 +1,5 @@
 import Image from 'next/image';
-// import logoImg from "../../public/logo.png";
+import logoimg from "../../../public/logo.png"
 import React from 'react';
 import { FaFacebook } from "react-icons/fa";
 import { FaSquareInstagram, FaSquareTwitter } from "react-icons/fa6";
@@ -7,7 +7,7 @@ import { IoLogoLinkedin } from "react-icons/io5";
 
 const Footer = () => {
     return (
-        <div className="bg-blue-300 border-t mt-6 border-gray-200 pt-16 pb-8">
+        <div className="bg-blue-400 border-t mt-6 border-gray-200 pt-16 pb-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
 
@@ -16,7 +16,9 @@ const Footer = () => {
 
                         <h2 className=' flex gap-3 cursor-pointer'>
                             <Image
-                            src="/logo.png" alt="logo" width={40} height={40}
+                            // src="/logo.png"
+                               src={logoimg}
+                             alt="logo" width={40} height={40}
                             className="rounded-full h-auto w-auto font-bold" />
                            <span className='text-3xl font-bold'>Suncart</span> 
                             </h2>
