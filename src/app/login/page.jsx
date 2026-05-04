@@ -13,11 +13,18 @@ import {
     TextField,
 } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { GrGoogle } from "react-icons/gr";
 import { toast } from "react-toastify";
 
 export default function SignUpPage() {
 
     const router = useRouter()
+    
+    const handleGoogle = async () => {
+            await authClient.signIn.social({
+                provider: "google",
+            });
+        };
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -121,6 +128,13 @@ export default function SignUpPage() {
                 </div>
             </Form>
 
+
+
+            <p className="text-center">or</p>
+
+            <Button onClick={handleGoogle} variant="outline" className="w-full">
+                <GrGoogle /> Sign in with Google
+            </Button>
 
         </Card>
     );

@@ -13,11 +13,18 @@ import {
     TextField,
 } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { GrGoogle } from "react-icons/gr";
 import { toast } from "react-toastify";
+import { Divider } from "@heroui/react";
 
 export default function SignInPage() {
 
     const router = useRouter()
+    const handleGoogle = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
+    };
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -26,10 +33,10 @@ export default function SignInPage() {
         const email = e.target.email.value;
         const password = e.target.password.value;
 
-        
+
 
         const { data, error } = await authClient.signIn.email({
-           
+
             email,
             password
         });
@@ -108,7 +115,13 @@ export default function SignInPage() {
                 </div>
             </Form>
 
+            <div className="w-full">
+                <Divider>OR</Divider>
+            </div>
 
+            <Button onClick={handleGoogle} variant="outline" className="w-full">
+                <GrGoogle /> Sign in with Google
+            </Button>
         </Card>
     );
 }
