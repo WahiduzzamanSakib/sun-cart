@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "name": "UV Protection Sunglasses",
+    "brand": "SunShade",
+    "price": 25.0,
+    "rating": 4.7,
+    "stock": 45,
+    "description": "High-quality polarized lenses that block 100% of UVA and UVB radiation. Lightweight frame for all-day comfort.",
+    "image": "https://m.media-amazon.com/images/I/51sWHMZ6nmL._AC_SX522_.jpg",
+    "category": "Accessories"
+  },
+  {
+    "id": 2,
+    "name": "Portable Beach Umbrella",
+    "brand": "OceanBreeze",
+    "price": 45.99,
+    "rating": 4.5,
+    "stock": 20,
+    "description": "7-foot canopy with UPF 50+ sun protection. Includes a sand anchor and a convenient carrying bag.",
+    "image": "https://m.media-amazon.com/images/I/6103QVfWWDL._AC_SY300_SX300_QL70_FMwebp_.jpg",
+    "category": "Outdoor"
+  },
+  {
+    "id": 3,
+    "name": "Insulated Cooler Bag",
+    "brand": "ArcticFlow",
+    "price": 32.5,
+    "rating": 4.8,
+    "stock": 15,
+    "description": "Leak-proof thermal insulation keeps drinks ice-cold for up to 12 hours. Perfect for picnics and beach trips.",
+    "image": "https://m.media-amazon.com/images/I/81D0T918vrL._AC_SY300_SX300_QL70_FMwebp_.jpg",
+    "category": "Kitchen & Dining"
+  },
+  {
+    "id": 4,
+    "name": "Quick-Dry Beach Towel",
+    "brand": "SandFree",
+    "price": 19.99,
+    "rating": 4.6,
+    "stock": 100,
+    "description": "Microfiber material that dries 3x faster than cotton and repels sand effortlessly. Extra large size.",
+    "image": "https://m.media-amazon.com/images/I/818ldoGfx2L._AC_SX679_.jpg",
+    "category": "Bath"
+  },
+  {
+    "id": 5,
+    "name": "Waterproof Bluetooth Speaker",
+    "brand": "SonicWave",
+    "price": 59.0,
+    "rating": 4.9,
+    "stock": 30,
+    "description": "IPX7 waterproof rating. Deep bass and crystal clear sound for pool parties and outdoor adventures.",
+    "image": "https://m.media-amazon.com/images/I/81-YRA6tQqL._AC_SY300_SX300_QL70_FMwebp_.jpg",
+    "category": "Electronics"
+  },
+  {
+    "id": 6,
+    "name": "Wide Brim Straw Hat",
+    "brand": "SummerVibe",
+    "price": 22.0,
+    "rating": 4.4,
+    "stock": 55,
+    "description": "Breathable straw material with an adjustable chin strap. Provides excellent shade for face and neck.",
+    "image": "https://m.media-amazon.com/images/I/613dAjnhUJL._AC_SY500_.jpg",
+    "category": "Accessories"
+  },
+  {
+    "id": 7,
+    "name": "Inflatable Pool Float",
+    "brand": "FloatieJoy",
+    "price": 28.5,
+    "rating": 4.3,
+    "stock": 12,
+    "description": "Giant flamingo-shaped floatie made from durable, puncture-resistant vinyl. Fun for all ages.",
+    "image": "https://m.media-amazon.com/images/I/814LFWjSmbL._AC_SY300_SX300_QL70_FMwebp_.jpg",
+    "category": "Toys & Games"
+  },
+  {
+    "id": 8,
+    "name": "Hydrating Face Mist",
+    "brand": "GlowSkin",
+    "price": 14.0,
+    "rating": 4.7,
+    "stock": 80,
+    "description": "Infused with aloe vera and cucumber extract to cool and hydrate skin during hot summer days.",
+    "image": "https://m.media-amazon.com/images/I/71LQ-32prpL._SX425_.jpg",
+    "category": "Beauty"
+  }
+]
