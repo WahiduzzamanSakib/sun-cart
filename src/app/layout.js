@@ -3,7 +3,7 @@ import "./globals.css";
 
 
 import { ToastContainer } from 'react-toastify';
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 import Navber from "./components/Navber";
 
 
@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <Navber/>
         {children}
-        {/* <Footer/> */}
+        <Footer/>
         <ToastContainer />
         </body>
     </html>
