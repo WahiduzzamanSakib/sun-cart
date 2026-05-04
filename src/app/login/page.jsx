@@ -19,12 +19,12 @@ import { toast } from "react-toastify";
 export default function SignUpPage() {
 
     const router = useRouter()
-    
+
     const handleGoogle = async () => {
-            await authClient.signIn.social({
-                provider: "google",
-            });
-        };
+        await authClient.signIn.social({
+            provider: "google",
+        });
+    };
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -57,7 +57,7 @@ export default function SignUpPage() {
     };
 
     return (
-        <Card className="border mx-auto w-125 py-10 mt-5">
+        <Card className="border mx-auto w-full max-w-md px-4 sm:px-6 py-6 sm:py-10 mt-5">
             <h1 className="text-center text-2xl font-bold"> Registration</h1>
 
             <Form className="flex w-96 mx-auto flex-col gap-4" onSubmit={onSubmit}>

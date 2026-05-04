@@ -6,77 +6,115 @@ import Link from 'next/link';
 import React from 'react';
 import "animate.css";
 import { usePathname } from 'next/navigation'
-import { Button } from '@heroui/react';
+import { authClient } from '@/lib/auth-client';
+import { Avatar, Button } from '@heroui/react';
+
+
 
 const Navber = () => {
     const pathname = usePathname()
+    const userData = authClient.useSession()
+    const user = userData.data?.user
 
-    const activeClass = "outline outline-2 outline-orange-500 bg-orange-50 text-orange-600 px-2 py-1 rounded-md"
+    const handleSignOut = async () => {
+        await authClient.signOut({
+        });
+    }
 
-    const normalClass = "font-bold px-2 py-1"
+
+    const activeClass =
+        "outline outline-2 outline-orange-500 bg-orange-50 text-orange-600 px-2 py-1 rounded-md text-sm"
+
+    const normalClass =
+        "font-bold px-2 py-1 text-sm"
 
     return (
         <div className="border-b px-2 bg-blue-400">
-            <nav className="flex justify-between items-center py-3 max-w-7xl mx-auto w-full">
+            <nav className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 py-3 max-w-7xl mx-auto w-full">
 
-                <div className="flex gap-2 items-center">
-                    <Image
-                        // src="/logo.png"
-                        src={logoimg}
-                        alt="logo"
-                        loading="eager"
-                        width={40}
-                        height={40}
-                        className="object-cover h-auto w-auto font-bold rounded-full"/>
-                    <h1 className="font-bold animate__animated animate__fadeInDown transition-transform duration-300 hover:scale-110">
-                        Suncart
-                    </h1>
+
+                <div className="flex gap-2 items-center justify-between w-full md:w-auto">
+                    <div className="flex gap-2 items-center">
+                        <Image
+                            src={logoimg}
+                            alt="logo"
+                            loading="eager"
+                            width={35}
+                            height={35}
+                            className="rounded-full"
+                        />
+                        <h1 className="font-bold text-base md:text-lg animate__animated animate__fadeInDown hover:scale-105 transition">
+                            Suncart
+                        </h1>
+                    </div>
                 </div>
 
-                <ul className="flex items-center gap-5 text-sm">
+
+                <ul className="flex flex-wrap justify-center md:flex-nowrap items-center gap-2 md:gap-5 text-sm">
                     <li>
-                        <Link
-                            href="/"
-                            className={pathname === '/' ? activeClass : normalClass}>
+                        <Link href="/" className={pathname === '/' ? activeClass : normalClass}>
                             Home
                         </Link>
                     </li>
 
                     <li>
-                        <Link
-                            href="/products"
-                            className={pathname.startsWith('/products') ? activeClass : normalClass}>
+                        <Link href="/products" className={pathname.startsWith('/products') ? activeClass : normalClass}>
                             Products
                         </Link>
                     </li>
 
                     <li>
-                        <Link
-                            href="/profile"
-                            className={pathname === '/profile' ? activeClass : normalClass}>
+                        <Link href="/profile" className={pathname === '/profile' ? activeClass : normalClass}>
                             Profile
                         </Link>
                     </li>
                 </ul>
 
+                <div>
+                    {!user && (
+                        <ul className="flex justify-center md:justify-end gap-2 text-sm">
+                            <li>
+                                <Link
+                                    href="/log"
+                                    className={pathname === "/log" ? activeClass : normalClass}
+                                >
+                                    Login
+                                </Link>
+                            </li>
 
-                <ul className='flex gap-2'>
-                    <li>
-                        <Link href="/log">
-                            <Button className={pathname === '/log' ? activeClass : normalClass}>
-                                Login
-                            </Button>
-                        </Link>
-                    </li>
+                            <li>
+                                <Link
+                                    href="/login"
+                                    className={pathname === "/login" ? activeClass : normalClass}
+                                >
+                                    Registration
+                                </Link>
+                            </li>
+                        </ul>
+                    )}
 
-                    <li>
-                        <Link
-                            href="/login" className={pathname === '/login' ? activeClass : normalClass}>
-                            Registration
-                        </Link>
-                    </li>
-                </ul>
+                    {
+                        user && (
+                            <div className="flex gap-2 items-center">
+                                <Avatar>
+                                    <Avatar.Image
+                                        alt="User avatar"
+                                        src={user?.image}
+                                        referrerPolicy="no-referrer"
+                                    />
+                                    <Avatar.Fallback>
+                                        {user?.name?.[0]}
+                                    </Avatar.Fallback>
+                                </Avatar>
 
+                                <Button onClick={handleSignOut} variant="danger">
+                                    Log Out
+                                </Button>
+                            </div>
+                        )
+                    }
+
+                </div>
             </nav>
         </div>
     );

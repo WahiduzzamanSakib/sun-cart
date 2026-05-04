@@ -17,6 +17,7 @@ import { GrGoogle } from "react-icons/gr";
 import { toast } from "react-toastify";
 
 
+
 export default function SignInPage() {
 
     const router = useRouter()
@@ -36,7 +37,6 @@ export default function SignInPage() {
 
 
         const { data, error } = await authClient.signIn.email({
-
             email,
             password
         });
@@ -55,10 +55,10 @@ export default function SignInPage() {
     };
 
     return (
-        <Card className="border mx-auto w-125 py-10 mt-5">
+        <Card className="border mx-auto w-full max-w-md px-4 sm:px-6 py-6 sm:py-10 mt-5">
             <h1 className="text-center text-2xl font-bold">Log in</h1>
 
-            <Form className="flex w-96 mx-auto flex-col gap-4" onSubmit={onSubmit}>
+            <Form className="flex w-full mx-auto flex-col gap-4" onSubmit={onSubmit}>
 
                 <TextField
                     isRequired
@@ -104,7 +104,7 @@ export default function SignInPage() {
                     <FieldError />
                 </TextField>
 
-                <div className="flex gap-2">
+                <div className="flex  sm:flex-row gap-2">
                     <Button type="submit">
                         <Check />
                         Submit
@@ -115,7 +115,7 @@ export default function SignInPage() {
                 </div>
             </Form>
 
-
+  <p className="text-center"> OR </p>
             <Button onClick={handleGoogle} variant="outline" className="w-full">
                 <GrGoogle /> Sign in with Google
             </Button>
