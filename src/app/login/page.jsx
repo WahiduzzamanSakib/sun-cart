@@ -32,9 +32,7 @@ export default function SignUpPage() {
         const name = e.target.name.value;
         const image = e.target.image.value;
         const email = e.target.email.value;
-        const password = e.target.password.value;
-
-        console.log(name, email, image, password)
+        const password = e.target.password.value
 
         const { data, error } = await authClient.signUp.email({
             name,
