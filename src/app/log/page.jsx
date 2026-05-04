@@ -50,8 +50,7 @@ export default function SignInPage() {
         }
 
         toast.success("Log In successfully!");
-        router.push('/');
-        router.refresh();
+       router.replace("/")
 
     };
 
