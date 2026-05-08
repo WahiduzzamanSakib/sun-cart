@@ -13,7 +13,7 @@ import {
     TextField,
 } from "@heroui/react";
 import { useRouter } from "next/navigation";
-import { GrGoogle } from "react-icons/gr";
+import { GrGithub, GrGoogle } from "react-icons/gr";
 import { toast } from "react-toastify";
 
 
@@ -25,6 +25,12 @@ export default function SignInPage() {
         await authClient.signIn.social({
             provider: "google",
         });
+    };
+
+    const handleGithub = async () => {
+        await authClient.signIn.social({
+            provider: "github",
+        })
     };
 
     const onSubmit = async (e) => {
@@ -42,6 +48,8 @@ export default function SignInPage() {
         });
 
 
+
+
         console.log({ data, error })
 
         if (error) {
@@ -50,7 +58,7 @@ export default function SignInPage() {
         }
 
         toast.success("Log In successfully!");
-       router.replace("/")
+        router.replace("/")
 
     };
 
@@ -115,10 +123,15 @@ export default function SignInPage() {
                 </div>
             </Form>
 
-  <p className="text-center"> OR </p>
+            <p className="text-center"> OR </p>
             <Button onClick={handleGoogle} variant="outline" className="w-full">
                 <GrGoogle /> Sign in with Google
             </Button>
+        
+            <Button onClick={handleGithub} variant="outline" className="w-full">
+                <GrGithub /> Sign in with Github
+            </Button>
+
         </Card>
     );
 }
