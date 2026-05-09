@@ -36,13 +36,14 @@ The goal of **SunCart** is to build a modern and responsive eCommerce platform f
 * ✏️ Update profile feature 
 * 🎨 Modern UI with Tailwind CSS + HeroUI
 * ⚡ Smooth navigation using Next.js App Router
-
+* 🔑 Email/password login + Github login
 ---
 
 ## 🧰 Tech Stack
 
 * Next.js (App Router)
 * React.js
+* Mongodb
 * Tailwind CSS
 *  HeroUI
 * BetterAuth
@@ -55,6 +56,7 @@ The goal of **SunCart** is to build a modern and responsive eCommerce platform f
 ## 📦 NPM Packages Used
 
 ```bash
+mongodb
 next
 react
 react-dom
@@ -113,6 +115,8 @@ NEXT_PUBLIC_API_URL=your_api_url
 BETTER_AUTH_SECRET=your_secret_key
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
 ```
 
 ---
