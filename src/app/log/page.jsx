@@ -13,7 +13,8 @@ import {
     TextField,
 } from "@heroui/react";
 import { useRouter } from "next/navigation";
-import { GrGithub, GrGoogle } from "react-icons/gr";
+// import { GrGithub, GrGoogle } from "react-icons/gr";
+ import { GrGoogle } from "react-icons/gr";
 import { toast } from "react-toastify";
 
 
@@ -27,11 +28,11 @@ export default function SignInPage() {
         });
     };
 
-    const handleGithub = async () => {
-        await authClient.signIn.social({
-            provider: "github",
-        })
-    };
+    // const handleGithub = async () => {
+    //     await authClient.signIn.social({
+    //         provider: "github",
+    //     })
+    // };
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -127,10 +128,10 @@ export default function SignInPage() {
             <Button onClick={handleGoogle} variant="outline" className="w-full">
                 <GrGoogle /> Sign in with Google
             </Button>
-        
-            <Button onClick={handleGithub} variant="outline" className="w-full">
+
+            {/* <Button onClick={handleGithub} variant="outline" className="w-full">
                 <GrGithub /> Sign in with Github
-            </Button>
+            </Button> */}
 
         </Card>
     );
