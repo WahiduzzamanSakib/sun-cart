@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import {
@@ -11,140 +12,207 @@ import {
     Input,
     Label,
     TextField,
+    Spinner,
 } from "@heroui/react";
 import { useRouter } from "next/navigation";
-// import { GrGithub, GrGoogle } from "react-icons/gr";
 import { GrGoogle } from "react-icons/gr";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 export default function SignUpPage() {
-
-    const router = useRouter()
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+    const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
     const handleGoogle = async () => {
-        await authClient.signIn.social({
-            provider: "google",
-        });
+        try {
+            setIsGoogleLoading(true);
+            await authClient.signIn.social({
+                provider: "google",
+                callbackURL: "/",
+            });
+        } catch (error) {
+            console.error("Google sign-in error:", error);
+            toast.error("Failed to authenticate with Google.");
+        } finally {
+            setIsGoogleLoading(false);
+        }
     };
-
-    // const handleGithub = async () => {
-    //     await authClient.signIn.social({
-    //         provider: "github",
-    //     })
-    // };
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
-        const name = e.target.name.value;
-        const image = e.target.image.value;
-        const email = e.target.email.value;
-        const password = e.target.password.value
+        const formData = new FormData(e.currentTarget);
+        const name = formData.get("name");
+        const image = formData.get("image");
+        const email = formData.get("email");
+        const password = formData.get("password");
 
-        const { data, error } = await authClient.signUp.email({
-            name,
-            email,
-            password,
-            image,
-        });
+        try {
+            const { data, error } = await authClient.signUp.email({
+                name,
+                email,
+                password,
+                image,
+            });
 
+            if (error) {
+                toast.error(error.message || "Registration failed. Please try again.");
+                setIsLoading(false);
+                return;
+            }
 
-        console.log({ data, error })
-
-        if (error) {
-            toast.error("Sign up failed");
-            return;
+            toast.success("Account created successfully!");
+            window.location.href = "/";
+        } catch (err) {
+            console.error("Sign up exception:", err);
+            toast.error("An unexpected error occurred.");
+            setIsLoading(false);
         }
-
-        toast.success("Account created successfully!");
-        router.push('/');
-        router.refresh();
-
     };
 
     return (
-        <Card className="border mx-auto w-full max-w-md px-4 sm:px-6 py-6 sm:py-10 mt-5">
-            <h1 className="text-center text-2xl font-bold"> Registration</h1>
+        <div className="min-h-[85vh] flex items-center justify-center px-4 py-8 bg-gradient-to-b from-blue-50/50 to-white dark:from-gray-950 dark:to-gray-900">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+               className="w-full sm:max-w-[60%]"
+            >
+                <Card className="border border-gray-200/80 dark:border-gray-800 shadow-xl backdrop-blur-md bg-white/90 dark:bg-gray-900/90 p-6 sm:p-8 rounded-2xl">
+                    <div className="text-center mb-6 space-y-1">
+                        <motion.h1 
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1, duration: 0.3 }}
+                            className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
+                        >
+                            Create an Account
+                        </motion.h1>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Join Suncart today to manage your preferences
+                        </p>
+                    </div>
 
-            <Form className="flex w-96 mx-auto flex-col gap-4" onSubmit={onSubmit}>
-                <TextField isRequired name="name" type="text">
-                    <Label>Name</Label>
-                    <Input placeholder="Enter your name" />
-                    <FieldError />
-                </TextField>
+                    <Form className="flex w-full flex-col gap-4" onSubmit={onSubmit}>
+                        <TextField isRequired name="name" type="text" className="w-full">
+                            <Label className="text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300">Name</Label>
+                            <Input placeholder="Enter your full name" className="mt-1" />
+                            <FieldError />
+                        </TextField>
 
-                <TextField isRequired name="image" type="text">
-                    <Label>Image URL</Label>
-                    <Input placeholder="Image URL" />
-                    <FieldError />
-                </TextField>
+                        <TextField name="image" type="text" className="w-full">
+                            <Label className="text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300">Profile Image URL</Label>
+                            <Input placeholder="https://example.com/avatar.jpg" className="mt-1" />
+                            <FieldError />
+                        </TextField>
 
-                <TextField
-                    isRequired
-                    name="email"
-                    type="email"
-                    validate={(value) => {
-                        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                            return "Please enter a valid email address";
-                        }
+                        <TextField
+                            isRequired
+                            name="email"
+                            type="email"
+                            className="w-full"
+                            validate={(value) => {
+                                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+                                    return "Please enter a valid email address";
+                                }
+                                return null;
+                            }}
+                        >
+                            <Label className="text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300">Email Address</Label>
+                            <Input placeholder="john@example.com" className="mt-1" />
+                            <FieldError />
+                        </TextField>
 
-                        return null;
-                    }}
-                >
-                    <Label>Email</Label>
-                    <Input placeholder="john@example.com" />
-                    <FieldError />
-                </TextField>
+                        <TextField
+                            isRequired
+                            minLength={8}
+                            name="password"
+                            type="password"
+                            className="w-full"
+                            validate={(value) => {
+                                if (value.length < 8) {
+                                    return "Password must be at least 8 characters";
+                                }
+                                if (!/[A-Z]/.test(value)) {
+                                    return "Password must contain at least one uppercase letter";
+                                }
+                                if (!/[0-9]/.test(value)) {
+                                    return "Password must contain at least one number";
+                                }
+                                return null;
+                            }}
+                        >
+                            <Label className="text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300">Password</Label>
+                            <Input placeholder="Create a strong password" className="mt-1" />
+                            <Description className="text-xs text-gray-500 mt-1">
+                                Must be 8+ chars with 1 uppercase & 1 number
+                            </Description>
+                            <FieldError />
+                        </TextField>
 
-                <TextField
-                    isRequired
-                    minLength={8}
-                    name="password"
-                    type="password"
-                    validate={(value) => {
-                        if (value.length < 8) {
-                            return "Password must be at least 8 characters";
-                        }
-                        if (!/[A-Z]/.test(value)) {
-                            return "Password must contain at least one uppercase letter";
-                        }
-                        if (!/[0-9]/.test(value)) {
-                            return "Password must contain at least one number";
-                        }
+                        <div className="flex gap-3 pt-2">
+                            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
+                                <Button
+                                    type="submit"
+                                    color="primary"
+                                    isDisabled={isLoading || isGoogleLoading}
+                                    className="w-full font-semibold shadow-md bg-orange-600 hover:bg-orange-700 text-white flex items-center justify-center gap-2"
+                                >
+                                    {isLoading ? (
+                                        <Spinner size="sm" color="white" />
+                                    ) : (
+                                        <>
+                                            <Check />
+                                            Register
+                                        </>
+                                    )}
+                                </Button>
+                            </motion.div>
 
-                        return null;
-                    }}
-                >
-                    <Label>Password</Label>
-                    <Input placeholder="Enter your password" />
-                    <Description>
-                        Must be at least 8 characters with 1 uppercase and 1 number
-                    </Description>
-                    <FieldError />
-                </TextField>
+                            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                                <Button
+                                    type="reset"
+                                    variant="flat"
+                                    isDisabled={isLoading || isGoogleLoading}
+                                    className="font-medium"
+                                >
+                                    Reset
+                                </Button>
+                            </motion.div>
+                        </div>
+                    </Form>
 
-                <div className="flex gap-2">
-                    <Button type="submit">
-                        <Check />
-                        Submit
-                    </Button>
-                    <Button type="reset" variant="secondary">
-                        Reset
-                    </Button>
-                </div>
-            </Form>
+                    <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-200 dark:border-gray-800" />
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                            <span className="bg-white dark:bg-gray-900 px-3 text-gray-400 font-medium">
+                                Or continue with
+                            </span>
+                        </div>
+                    </div>
 
-
-
-            <p className="text-center">or</p>
-
-            <Button onClick={handleGoogle} variant="outline" className="w-full">
-                <GrGoogle /> Sign in with Google
-            </Button>
-            {/* <Button onClick={handleGithub} variant="outline" className="w-full">
-                <GrGithub /> Sign in with Github
-            </Button> */}
-
-        </Card>
+                    <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+                        <Button
+                            onClick={handleGoogle}
+                            variant="bordered"
+                            isDisabled={isLoading || isGoogleLoading}
+                            className="w-full font-medium border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center justify-center gap-2 transition-colors"
+                        >
+                            {isGoogleLoading ? (
+                                <Spinner size="sm" />
+                            ) : (
+                                <>
+                                    <GrGoogle className="text-lg text-red-500" /> Sign in with Google
+                                </>
+                            )}
+                        </Button>
+                    </motion.div>
+                </Card>
+            </motion.div>
+        </div>
     );
 }

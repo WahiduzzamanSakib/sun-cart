@@ -28,29 +28,16 @@ export default function SignInPage() {
         });
     };
 
-    // const handleGithub = async () => {
-    //     await authClient.signIn.social({
-    //         provider: "github",
-    //     })
-    // };
 
     const onSubmit = async (e) => {
         e.preventDefault();
-
-
         const email = e.target.email.value;
         const password = e.target.password.value;
-
-
 
         const { data, error } = await authClient.signIn.email({
             email,
             password
         });
-
-
-
-
         console.log({ data, error })
 
         if (error) {
@@ -116,7 +103,7 @@ export default function SignInPage() {
                 <div className="flex  sm:flex-row gap-2">
                     <Button type="submit">
                         <Check />
-                        Submit
+                        Log In
                     </Button>
                     <Button type="forget" variant="secondary">
                         Forget
@@ -128,10 +115,6 @@ export default function SignInPage() {
             <Button onClick={handleGoogle} variant="outline" className="w-full">
                 <GrGoogle /> Sign in with Google
             </Button>
-
-            {/* <Button onClick={handleGithub} variant="outline" className="w-full">
-                <GrGithub /> Sign in with Github
-            </Button> */}
 
         </Card>
     );
