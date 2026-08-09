@@ -8,7 +8,7 @@ SunCart is a modern summer eCommerce web application where users can explore and
 
 ## 🚀 Live Demo
 
-👉 [https://sun-cart-c2md.vercel.app](https://sun-cart-c2md.vercel.app)
+👉 [https://sun-cart-plum.vercel.app](https://sun-cart-plum.vercel.app)
 
 ---
 
