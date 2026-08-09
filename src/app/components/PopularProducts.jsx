@@ -3,7 +3,7 @@ import ProductsCard from './ProductsCard';
 
 
 const PopularProducts = async () => {
-    const res = await fetch("https://sun-cart-c2md.vercel.app/data.json", {
+    const res = await fetch(`${process.env.BETTER_AUTH_URL}/data.json`, {
         cache: "no-store",
     });
 

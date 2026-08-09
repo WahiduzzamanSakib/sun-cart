@@ -7,7 +7,7 @@ import { MdProductionQuantityLimits } from "react-icons/md";
 const CardDetails = async ({ params }) => {
     const { id } = await params;
 
-    const res = await fetch("https://sun-cart-c2md.vercel.app/data.json", {
+    const res = await fetch(`${process.env.BETTER_AUTH_URL}/data.json`, {
         cache: "no-store",
     });
     const data = await res.json();

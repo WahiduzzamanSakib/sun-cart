@@ -106,7 +106,7 @@ const Navber = () => {
                                 </Avatar.Fallback>
                             </Avatar>
 
-                            <Button onClick={handleSignOut} variant="danger">
+                            <Button onClick={handleSignOut} color="danger">
                                 Log Out
                             </Button>
                         </div>
@@ -188,7 +188,7 @@ const Navber = () => {
                                     </Avatar.Fallback>
                                 </Avatar>
 
-                                <Button onClick={handleSignOut} variant="danger">
+                                <Button onClick={handleSignOut} color="danger">
                                     Log Out
                                 </Button>
                             </div>

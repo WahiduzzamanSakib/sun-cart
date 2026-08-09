@@ -25,6 +25,7 @@ export default function SignInPage() {
     const handleGoogle = async () => {
         await authClient.signIn.social({
             provider: "google",
+            callbackURL: "/",
         });
     };
 
@@ -105,14 +106,14 @@ export default function SignInPage() {
                         <Check />
                         Log In
                     </Button>
-                    <Button type="forget" variant="secondary">
+                    <Button type="button" variant="secondary">
                         Forget
                     </Button>
                 </div>
             </Form>
 
             <p className="text-center"> OR </p>
-            <Button onClick={handleGoogle} variant="outline" className="w-full">
+            <Button onClick={handleGoogle} variant="bordered" className="w-full">
                 <GrGoogle /> Sign in with Google
             </Button>
 

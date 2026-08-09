@@ -3,7 +3,7 @@ import React from 'react';
 import ProductsCard from '../components/ProductsCard';
 
 const Products = async () => {
-    const res = await fetch("https://sun-cart-c2md.vercel.app/data.json", {
+    const res = await fetch(`${process.env.BETTER_AUTH_URL}/data.json`, {
         cache: "no-store",
     });
     const item = await res.json();

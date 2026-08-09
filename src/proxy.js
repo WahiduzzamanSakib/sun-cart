@@ -1,20 +1,18 @@
 import { NextResponse } from "next/server";
 import { auth } from "./lib/auth";
-import { headers } from "next/headers";
-
 
 export async function proxy(request) {
   const session = await auth.api.getSession({
-    headers: await headers(),
+    headers: {
+      cookie: request.headers.get("cookie") || "",
+    },
   });
   if (session) {
-    return NextResponse.next()
+    return NextResponse.next();
   }
-  // if (!session) {
-  return NextResponse.redirect(new URL('/log', request.url))
-  // }
+  return NextResponse.redirect(new URL('/log', request.url));
 }
 
 export const config = {
-  matcher: ["/profile", "/products/:path"],
+  matcher: ["/profile", "/products/:path*"],
 };
