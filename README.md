@@ -40,7 +40,6 @@ The goal of **SunCart** is to build a modern and responsive eCommerce platform f
 ### Frontend
 
 - Next.js (App Router)
-- React.js
 - Tailwind CSS
 - HeroUI
 - BetterAuth
