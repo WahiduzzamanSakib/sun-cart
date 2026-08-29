@@ -9,10 +9,11 @@ SunCart is a modern summer eCommerce web application where users can explore sea
 
 ## 🚀 Live Demo
 
-👉 [https://sun-cart-plum.vercel.app](https://sun-cart-plum.vercel.app)
+👉 **Live Site:** [https://sun-cart-plum.vercel.app](https://sun-cart-plum.vercel.app)
+
+👉 **GitHub Repository:** [https://github.com/WahiduzzamanSakib/sun-cart](https://github.com/WahiduzzamanSakib/sun-cart)
 
 ---
-
 ## 🎯 Project Purpose
 
 The goal of **SunCart** is to build a modern and responsive eCommerce platform focused on summer products. Users can browse products, view details, authenticate securely, and manage their profile.
@@ -130,11 +131,15 @@ SunCart is fully responsive and optimized for:
 
 ## 🏁 Final Notes
 
-* Ensure `.env.local` is properly configured before running the project.
-* Authentication is required for protected routes.
-* Built with a clean and modern UI focused on summer shopping experience.
+- Ensure `.env.local` is properly configured before running the project.
+- Authentication is required for protected routes.
+- Built with a clean and modern UI focused on summer shopping experience.
 
+---
 
+## 👨‍💻 Developer
 
+**Md. Waheduzzaman**
 
+LinkedIn: https://www.linkedin.com/in/waheduzzaman-md
 
