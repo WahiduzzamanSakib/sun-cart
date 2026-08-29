@@ -29,7 +29,6 @@ The goal of **SunCart** is to build a modern and responsive eCommerce platform f
 - 🔐 Secure authentication using BetterAuth
 - 🔑 Email/Password login
 - 🔑 Google Login
-- 🔑 GitHub Login
 - 👤 User profile page with update functionality
 - 🎨 Modern UI with Tailwind CSS + HeroUI
 - ⚡ Fast and smooth navigation using Next.js App Router
