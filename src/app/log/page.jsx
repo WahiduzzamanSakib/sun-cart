@@ -244,7 +244,7 @@ export default function SignInPage() {
                         </span>
                     ) : (
                         <span className="flex items-center justify-center gap-2">
-                            <GrGoogle className="h-4 w-4" />
+                            <GrGoogle className="h-4 w-4 text-green-500" />
                             Continue with Google
                         </span>
                     )}

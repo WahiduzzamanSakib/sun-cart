@@ -51,7 +51,7 @@ export default function ExtraSections() {
         <div className="container mx-auto my-12 px-4 space-y-16">
             {/* Summer Care Tips Section */}
             <section className="py-16 px-6 sm:px-12 bg-gradient-to-br from-orange-50/80 via-amber-50/40 to-orange-100/50 rounded-3xl border border-orange-100/60 shadow-sm relative overflow-hidden">
-                {/* ব্যাকগ্রাউন্ডের হালকা অ্যানিমেটেড ডেকোরেশন */}
+                
                 <div className="absolute -top-12 -right-12 w-48 h-48 bg-orange-200/40 rounded-full blur-3xl pointer-events-none" />
                 <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-amber-200/40 rounded-full blur-3xl pointer-events-none" />
 
@@ -84,13 +84,13 @@ export default function ExtraSections() {
                                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
                                 className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-orange-100/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-start group"
                             >
-                                <div className="p-3 bg-orange-100/70 rounded-xl mb-5 group-hover:scale-110 group-hover:bg-orange-600 group-hover:text-white transition-all duration-300">
+                                <div className="p-3 bg-orange-100/70 rounded-xl mb-5 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
                                     {React.cloneElement(tip.icon, {
                                         className:
                                             "w-6 h-6 text-orange-600 group-hover:text-white transition-colors duration-300",
                                     })}
                                 </div>
-                                <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-orange-600 transition-colors">
+                                <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-emerald-600 transition-colors">
                                     {tip.title}
                                 </h3>
                                 <p className="text-gray-600 text-sm leading-relaxed">

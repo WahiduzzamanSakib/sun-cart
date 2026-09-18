@@ -1,88 +1,305 @@
-'use client'
+"use client";
 
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Card, Separator } from "@heroui/react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { FaStar } from "react-icons/fa6";
 import { HiArrowRight } from "react-icons/hi2";
 
 const ProductsCard = ({ data }) => {
+    const shouldReduceMotion = useReducedMotion();
+
     if (!data) return null;
+
+    const price = Number(data.price || 0);
+    const rating = Number(data.rating || 0);
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={
+                shouldReduceMotion
+                    ? false
+                    : { opacity: 0, y: 20 }
+            }
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            whileHover={{ y: -6 }}
-            className="w-full h-full"
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{
+                duration: 0.4,
+                ease: "easeOut",
+            }}
+            whileHover={
+                shouldReduceMotion
+                    ? undefined
+                    : { y: -5 }
+            }
+            className="h-full w-full"
         >
-            <Card className="group flex flex-col justify-between h-full p-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
-                
-                <div>
-                    {/* Image Container */}
-                    <div className="relative w-full aspect-square bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden mb-4">
+            <Card
+                className="
+                    group
+                    flex
+                    h-full
+                    flex-col
+                    overflow-hidden
+                    rounded-2xl
+                    border
+                    border-gray-200
+                    bg-white
+                    p-3.5
+                    shadow-sm
+                    transition-all
+                    duration-300
+                    hover:border-emerald-200
+                    hover:shadow-lg
+                    dark:border-gray-800
+                    dark:bg-gray-900
+                    dark:hover:border-emerald-900
+                "
+            >
+                {/* Product Image */}
+                <Link
+                    href={`/products/${data.id}`}
+                    className="
+                        relative
+                        block
+                        w-full
+                        overflow-hidden
+                        rounded-xl
+                        bg-gray-50
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-emerald-500
+                        focus:ring-offset-2
+                        dark:bg-gray-800
+                    "
+                    aria-label={`View ${data.name || "product"} details`}
+                >
+                    <div className="relative aspect-square w-full">
                         <Image
                             src={data.image || "/placeholder.png"}
                             alt={data.name || "Product image"}
                             fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                            className="object-cover object-center p-3 transition-transform duration-500 ease-out group-hover:scale-105"
+                            sizes="
+                                (max-width: 640px) 80vw,
+                                (max-width: 1024px) 50vw,
+                                25vw
+                            "
+                            className="
+                                object-cover
+                                object-center
+                                p-3
+                                transition-transform
+                                duration-500
+                                ease-out
+                                group-hover:scale-105
+                            "
                         />
-                        
-                        {/* Rating Badge Overlay */}
-                        {data.rating && (
-                            <div className="absolute top-3 right-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm border border-gray-100 dark:border-gray-800">
-                                <FaStar className="text-amber-400 text-xs" />
-                                <span className="text-xs font-bold text-gray-800 dark:text-gray-200">
-                                    {Number(data.rating).toFixed(1)}
+                    </div>
+
+                    {/* Rating */}
+                    {data.rating !== undefined &&
+                        data.rating !== null && (
+                            <div
+                                className="
+                                    absolute
+                                    right-2.5
+                                    top-2.5
+                                    flex
+                                    items-center
+                                    gap-1.5
+                                    rounded-full
+                                    border
+                                    border-white/60
+                                    bg-white/95
+                                    px-2.5
+                                    py-1
+                                    shadow-sm
+                                    backdrop-blur-md
+                                    dark:border-gray-700
+                                    dark:bg-gray-900/95
+                                "
+                                aria-label={`Rating ${rating.toFixed(1)} out of 5`}
+                            >
+                                <FaStar className="text-xs text-amber-400" />
+
+                                <span
+                                    className="
+                                        text-xs
+                                        font-bold
+                                        text-gray-800
+                                        dark:text-gray-200
+                                    "
+                                >
+                                    {rating.toFixed(1)}
                                 </span>
                             </div>
                         )}
+
+                    {/* View Product Hint */}
+                    <div
+                        className="
+                            pointer-events-none
+                            absolute
+                            inset-x-0
+                            bottom-0
+                            hidden
+                            bg-gradient-to-t
+                            from-black/50
+                            to-transparent
+                            px-3
+                            pb-3
+                            pt-8
+                            sm:block
+                            opacity-0
+                            transition-opacity
+                            duration-300
+                            group-hover:opacity-100
+                        "
+                    >
+                        <span className="text-xs font-medium text-white">
+                            View product
+                        </span>
                     </div>
+                </Link>
 
-                    {/* Product Info */}
-                    <div className="px-1">
-                        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 line-clamp-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                            {data.name}
-                        </h3>
-
-                        {/* Used Separator component as defined in HeroUI */}
-                        <Separator className="my-3 bg-gray-100 dark:bg-gray-800" />
-
-                        {/* Price Display */}
-                        <div className="flex items-center justify-between mb-4">
-                            <div>
-                                <span className="text-xs text-gray-400 uppercase tracking-wider block">Price</span>
-                                <p className="text-lg font-black text-gray-900 dark:text-white">
-                                    ${Number(data.price || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                                </p>
-                            </div>
-
-                            {data.category && (
-                                <span className="text-xs font-medium text-emerald-700 bg-emerald-50 dark:bg-emerald-950/50 dark:text-emerald-300 px-2.5 py-1 rounded-md">
-                                    {data.category}
-                                </span>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Call to Action Button */}
-                <div className="pt-2">
-                    <Link href={`/products/${data.id}`} className="block w-full">
-                        <Button 
-                            className="w-full bg-gray-900 hover:bg-emerald-600 text-white font-medium rounded-xl py-5 shadow-sm transition-all duration-300 group/btn flex items-center justify-center gap-2"
+                {/* Product Information */}
+                <div className="flex flex-1 flex-col px-1 pt-4">
+                    {/* Category */}
+                    {data.category && (
+                        <span
+                            className="
+                               
+                                w-fit
+                                rounded-md
+                                bg-emerald-50
+                                px-2.5
+                                py-1
+                                text-[11px]
+                                font-semibold
+                                uppercase
+                                tracking-wide
+                                text-emerald-700
+                                dark:bg-emerald-950/50
+                                dark:text-emerald-300
+                            "
                         >
-                            <span>View Details</span>
-                            <HiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-                        </Button>
-                    </Link>
-                </div>
+                            {data.category}
+                        </span>
+                    )}
 
+                    {/* Product Name */}
+                    <Link
+                        href={`/products/${data.id}`}
+                        className="
+                            rounded-md
+                            focus:outline-none
+                            focus:ring-2
+                            focus:ring-emerald-500
+                        "
+                    >
+                        <h3
+                            className="
+                                line-clamp-2
+                                min-h-[3rem]
+                                text-base
+                                font-semibold
+                                leading-6
+                                text-gray-900
+                                transition-colors
+                                duration-200
+                                group-hover:text-emerald-600
+                                dark:text-gray-100
+                                dark:group-hover:text-emerald-400
+                            "
+                        >
+                            {data.name || "Unnamed Product"}
+                        </h3>
+                    </Link>
+
+                    <Separator
+                        className="
+                            mb-3
+                            bg-gray-100
+                            dark:bg-gray-800
+                        "
+                    />
+
+                    {/* Price */}
+                    <div className="mb-4">
+                        <span
+                            className="
+                                text-[11px]
+                                font-medium
+                                uppercase
+                                tracking-wider
+                                text-gray-400
+                            "
+                        >
+                            Price
+                        </span>
+
+                        <p
+                            className="
+                                mt-0.5
+                                text-xl
+                                font-black
+                                leading-tight
+                                text-gray-900
+                                dark:text-white
+                            "
+                        >
+                            $
+                            {price.toLocaleString("en-US", {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}
+                        </p>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="mt-auto">
+                        <Link
+                            href={`/products/${data.id}`}
+                            className="block w-full"
+                        >
+                            <Button
+                                className="
+                                    min-h-11
+                                    w-full
+                                    rounded-xl
+                                    bg-gray-900
+                                    px-4
+                                    font-semibold
+                                    text-white
+                                    shadow-sm
+                                    transition-all
+                                    duration-300
+                                    hover:bg-emerald-600
+                                    active:scale-[0.98]
+                                    focus:ring-2
+                                    focus:ring-emerald-500
+                                    focus:ring-offset-2
+                                    dark:bg-gray-800
+                                    dark:hover:bg-emerald-600
+                                "
+                            >
+                                <span>View Details</span>
+
+                                <HiArrowRight
+                                    className="
+                                        h-4
+                                        w-4
+                                        transition-transform
+                                        duration-300
+                                        group-hover:translate-x-1
+                                    "
+                                />
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
             </Card>
         </motion.div>
     );
