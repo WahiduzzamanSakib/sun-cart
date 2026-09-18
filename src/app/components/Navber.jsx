@@ -1,203 +1,339 @@
-'use client'
+"use client";
 
-import Image from 'next/image';
-import logoimg from "../../../public/logo.png"
-import Link from 'next/link';
-import React, { useState } from 'react';
+import Image from "next/image";
+import logoimg from "../../../public/logo.png";
+import Link from "next/link";
+import React, { useState } from "react";
 import "animate.css";
-import { usePathname, useRouter } from 'next/navigation'
-import { authClient } from '@/lib/auth-client';
-import { Avatar, Button } from '@heroui/react';
+import { usePathname, useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { Avatar, Button } from "@heroui/react";
+import {
+  HiOutlineBars3,
+  HiOutlineXMark,
+  HiOutlineArrowRightOnRectangle,
+} from "react-icons/hi2";
 
 const Navber = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const pathname = usePathname()
-    const userData = authClient.useSession()
-    console.log(userData)
-    const router = useRouter()
-    const user = userData.data?.user
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-    const handleSignOut = async () => {
-        await authClient.signOut({
-        });
-        router.push("/")
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const userData = authClient.useSession();
+  const user = userData.data?.user;
+
+  // =========================
+  // Logout
+  // =========================
+  const handleSignOut = async () => {
+    if (isLoggingOut) return;
+
+    try {
+      setIsLoggingOut(true);
+
+      await authClient.signOut({});
+
+      setIsMenuOpen(false);
+      router.push("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      setIsLoggingOut(false);
     }
+  };
 
-    const activeClass =
-        "outline outline-2 outline-orange-500 bg-orange-50 text-orange-600 px-3 py-1.5 rounded-md text-sm font-semibold transition-all"
+  // =========================
+  // Close Mobile Menu
+  // =========================
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
-    const normalClass =
-        "font-bold px-3 py-1.5 text-sm hover:text-orange-600 transition-colors"
+  // =========================
+  // Navigation Links
+  // =========================
+  const navLinks = [
+    {
+      href: "/",
+      label: "Home",
+      active: pathname === "/",
+    },
+    {
+      href: "/products",
+      label: "Products",
+      active: pathname.startsWith("/products"),
+    },
+    {
+      href: "/profile",
+      label: "Profile",
+      active: pathname === "/profile",
+    },
+  ];
 
-    return (
-        <div className="border-b px-4 bg-blue-400 sticky top-0 z-50">
-            <nav className="flex items-center justify-between py-3 max-w-7xl mx-auto w-full">
+  // =========================
+  // Desktop Navigation Classes
+  // =========================
+  const getNavClass = (active) => `
+    relative
+    rounded-lg
+    px-3
+    py-2
+    text-sm
+    font-semibold
+    transition-all
+    duration-200
+    focus:outline-none
+    focus:ring-2
+    focus:ring-emerald-300
+    ${
+      active
+        ? "bg-emerald-100 text-emerald-700"
+        : "text-gray-700 hover:bg-emerald-50 hover:text-emerald-700"
+    }
+  `;
 
-                {/* Brand / Logo */}
-                <div className="flex gap-2 items-center">
-                    <Image
-                        src={logoimg}
-                        alt="logo"
-                        loading="eager"
-                        width={35}
-                        height={35}
-                        className="rounded-full"
-                    />
-                    <h1 className="font-bold text-lg md:text-xl animate__animated animate__fadeInDown hover:scale-105 transition">
-                        Suncart
-                    </h1>
-                </div>
+  return (
+    <header className="sticky top-0 z-50 border-b border-emerald-100 bg-white/90 shadow-sm backdrop-blur-md">
+      <nav
+        className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8"
+        aria-label="Main navigation"
+      >
+        {/* =========================
+            Logo / Brand
+        ========================= */}
+        <Link
+          href="/"
+          onClick={closeMenu}
+          className="group flex items-center gap-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2"
+          aria-label="SunCart home"
+        >
+          <Image
+            src={logoimg}
+            alt="SunCart logo"
+            loading="eager"
+            width={38}
+            height={38}
+            className="rounded-full transition-transform duration-300 group-hover:scale-105"
+          />
 
-                {/* Desktop Navigation Links */}
-                <ul className="hidden md:flex items-center gap-4 text-sm">
-                    <li>
-                        <Link href="/" className={pathname === '/' ? activeClass : normalClass}>
-                            Home
-                        </Link>
-                    </li>
+          <span className="text-lg font-extrabold tracking-tight text-gray-900 transition-colors group-hover:text-emerald-600 sm:text-xl">
+            Sun<span className="text-emerald-600">Cart</span>
+          </span>
+        </Link>
 
-                    <li>
-                        <Link href="/products" className={pathname.startsWith('/products') ? activeClass : normalClass}>
-                            Products
-                        </Link>
-                    </li>
+        {/* =========================
+            Desktop Navigation
+        ========================= */}
+        <ul className="hidden items-center gap-1 md:flex">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className={getNavClass(link.active)}
+                aria-current={link.active ? "page" : undefined}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-                    <li>
-                        <Link href="/profile" className={pathname === '/profile' ? activeClass : normalClass}>
-                            Profile
-                        </Link>
-                    </li>
-                </ul>
+        {/* =========================
+            Desktop Auth Controls
+        ========================= */}
+        <div className="hidden items-center md:flex">
+          {!user ? (
+            <div className="flex items-center gap-2">
+              {/* Login */}
+              <Link
+                href="/log"
+                className="rounded-lg px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+              >
+                Login
+              </Link>
 
-                {/* Desktop Authentication Controls */}
-                <div className="hidden md:block">
-                    {!user && (
-                        <ul className="flex items-center gap-3 text-sm">
-                            <li>
-                                <Link
-                                    href="/log"
-                                    className={pathname === "/log" ? activeClass : normalClass}
-                                >
-                                    Login
-                                </Link>
-                            </li>
+              {/* Register */}
+              <Link
+                href="/login"
+                className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-emerald-600/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-md active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-200"
+              >
+                Create Account
+              </Link>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              {/* User Info */}
+              <Link
+                href="/profile"
+                className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+              >
+                <Avatar size="sm">
+                  <Avatar.Image
+                    alt={`${user?.name || "User"} avatar`}
+                    src={user?.image}
+                    referrerPolicy="no-referrer"
+                  />
+                  <Avatar.Fallback>
+                    {user?.name?.[0]?.toUpperCase() || "U"}
+                  </Avatar.Fallback>
+                </Avatar>
 
-                            <li>
-                                <Link
-                                    href="/login"
-                                    className={pathname === "/login" ? activeClass : normalClass}
-                                >
-                                    Registration
-                                </Link>
-                            </li>
-                        </ul>
-                    )}
+                <span className="hidden max-w-[120px] truncate text-sm font-semibold text-gray-700 lg:block">
+                  {user?.name || "User"}
+                </span>
+              </Link>
 
-                    {user && (
-                        <div className="flex gap-3 items-center">
-                            <Avatar>
-                                <Avatar.Image
-                                    alt="User avatar"
-                                    src={user?.image}
-                                    referrerPolicy="no-referrer"
-                                />
-                                <Avatar.Fallback>
-                                    {user?.name?.[0]}
-                                </Avatar.Fallback>
-                            </Avatar>
-
-                            <Button onClick={handleSignOut} color="danger">
-                                Log Out
-                            </Button>
-                        </div>
-                    )}
-                </div>
-
-                {/* Mobile Hamburger Toggle Button */}
-                <button
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    className="md:hidden p-2 text-gray-800 hover:text-black focus:outline-none"
-                    aria-label="Toggle Navigation Menu"
-                >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        {isMenuOpen ? (
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                        ) : (
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                        )}
-                    </svg>
-                </button>
-            </nav>
-
-            {/* Mobile Expandable Drawer Menu */}
-            {isMenuOpen && (
-                <div className="md:hidden flex flex-col gap-4 pb-4 pt-2 border-t border-blue-300 animate__animated animate__fadeIn">
-                    <ul className="flex flex-col items-center gap-3 text-sm">
-                        <li onClick={() => setIsMenuOpen(false)}>
-                            <Link href="/" className={pathname === '/' ? activeClass : normalClass}>
-                                Home
-                            </Link>
-                        </li>
-
-                        <li onClick={() => setIsMenuOpen(false)}>
-                            <Link href="/products" className={pathname.startsWith('/products') ? activeClass : normalClass}>
-                                Products
-                            </Link>
-                        </li>
-
-                        <li onClick={() => setIsMenuOpen(false)}>
-                            <Link href="/profile" className={pathname === '/profile' ? activeClass : normalClass}>
-                                Profile
-                            </Link>
-                        </li>
-                    </ul>
-
-                    <div className="flex justify-center pt-2 border-t border-blue-300">
-                        {!user && (
-                            <ul className="flex justify-center gap-4 text-sm">
-                                <li onClick={() => setIsMenuOpen(false)}>
-                                    <Link
-                                        href="/log"
-                                        className={pathname === "/log" ? activeClass : normalClass}
-                                    >
-                                        Login
-                                    </Link>
-                                </li>
-
-                                <li onClick={() => setIsMenuOpen(false)}>
-                                    <Link
-                                        href="/login"
-                                        className={pathname === "/login" ? activeClass : normalClass}
-                                    >
-                                        Registration
-                                    </Link>
-                                </li>
-                            </ul>
-                        )}
-
-                        {user && (
-                            <div className="flex gap-3 items-center">
-                                <Avatar>
-                                    <Avatar.Image
-                                        alt="User avatar"
-                                        src={user?.image}
-                                        referrerPolicy="no-referrer"
-                                    />
-                                    <Avatar.Fallback>
-                                        {user?.name?.[0]}
-                                    </Avatar.Fallback>
-                                </Avatar>
-
-                                <Button onClick={handleSignOut} color="danger">
-                                    Log Out
-                                </Button>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
+              {/* Logout */}
+              <Button
+                type="button"
+                color="danger"
+                disabled={isLoggingOut}
+                onClick={handleSignOut}
+                className="rounded-lg px-4 font-semibold transition-all duration-200 hover:-translate-y-0.5 active:scale-95 focus:outline-none focus:ring-4 focus:ring-red-200 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isLoggingOut ? (
+                  <span className="flex items-center gap-2">
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                    Logging out...
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                    <HiOutlineArrowRightOnRectangle className="h-5 w-5" />
+                    Log Out
+                  </span>
+                )}
+              </Button>
+            </div>
+          )}
         </div>
-    );
+
+        {/* =========================
+            Mobile Menu Button
+        ========================= */}
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          aria-label={
+            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
+          className="rounded-xl p-2 text-gray-700 transition-all duration-200 hover:bg-emerald-50 hover:text-emerald-700 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-300 md:hidden"
+        >
+          {isMenuOpen ? (
+            <HiOutlineXMark className="h-6 w-6" />
+          ) : (
+            <HiOutlineBars3 className="h-6 w-6" />
+          )}
+        </button>
+      </nav>
+
+      {/* =========================
+          Mobile Navigation
+      ========================= */}
+      {isMenuOpen && (
+        <div
+          id="mobile-navigation"
+          className="animate__animated animate__fadeIn border-t border-emerald-100 bg-white px-4 py-4 shadow-lg md:hidden"
+        >
+          {/* Navigation Links */}
+          <ul className="flex flex-col gap-1">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={closeMenu}
+                  aria-current={link.active ? "page" : undefined}
+                  className={`block rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200 ${
+                    link.active
+                      ? "bg-emerald-100 text-emerald-700"
+                      : "text-gray-700 hover:bg-emerald-50 hover:text-emerald-700"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Mobile Auth */}
+          <div className="mt-4 border-t border-gray-100 pt-4">
+            {!user ? (
+              <div className="flex flex-col gap-2">
+                <Link
+                  href="/log"
+                  onClick={closeMenu}
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-center text-sm font-semibold text-gray-700 transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+                >
+                  Login
+                </Link>
+
+                <Link
+                  href="/login"
+                  onClick={closeMenu}
+                  className="w-full rounded-xl bg-emerald-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-emerald-200"
+                >
+                  Create Account
+                </Link>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3">
+                {/* User */}
+                <Link
+                  href="/profile"
+                  onClick={closeMenu}
+                  className="flex items-center gap-3 rounded-xl bg-gray-50 px-4 py-3 transition hover:bg-emerald-50"
+                >
+                  <Avatar size="sm">
+                    <Avatar.Image
+                      alt={`${user?.name || "User"} avatar`}
+                      src={user?.image}
+                      referrerPolicy="no-referrer"
+                    />
+                    <Avatar.Fallback>
+                      {user?.name?.[0]?.toUpperCase() || "U"}
+                    </Avatar.Fallback>
+                  </Avatar>
+
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-gray-800">
+                      {user?.name || "User"}
+                    </p>
+                    <p className="truncate text-xs text-gray-500">
+                      View profile
+                    </p>
+                  </div>
+                </Link>
+
+                {/* Logout */}
+                <Button
+                  type="button"
+                  color="danger"
+                  disabled={isLoggingOut}
+                  onClick={handleSignOut}
+                  className="w-full rounded-xl font-semibold transition-all active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-red-200 disabled:opacity-60"
+                >
+                  {isLoggingOut ? (
+                    <span className="flex items-center gap-2">
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                      Logging out...
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      <HiOutlineArrowRightOnRectangle className="h-5 w-5" />
+                      Log Out
+                    </span>
+                  )}
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </header>
+  );
 };
 
 export default Navber;
