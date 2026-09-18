@@ -74,7 +74,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 mt-16 pt-16 pb-8 transition-colors duration-300">
+    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800  pt-6 pb-6 transition-colors duration-300">
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         initial="hidden"
@@ -83,7 +83,7 @@ export default function Footer() {
         variants={containerVariants}
       >
         {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-6">
           {/* Brand & Newsletter Section (Spans 2 cols) */}
           <motion.div variants={itemVariants} className="lg:col-span-2 space-y-5">
             <Link href="/" className="inline-flex items-center gap-3 group">
@@ -150,7 +150,7 @@ export default function Footer() {
           </motion.div>
 
           {/* Column 1: Shop */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.div variants={itemVariants} className="space-y-5">
             <h3 className="text-sm font-bold uppercase tracking-wider text-white border-b border-slate-800 pb-2">
               Shop
             </h3>
@@ -169,7 +169,7 @@ export default function Footer() {
           </motion.div>
 
           {/* Column 2: Customer Service */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.div variants={itemVariants} className="space-y-5">
             <h3 className="text-sm font-bold uppercase tracking-wider text-white border-b border-slate-800 pb-2">
               Customer Service
             </h3>
@@ -188,7 +188,7 @@ export default function Footer() {
           </motion.div>
 
           {/* Column 3: About Us */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.div variants={itemVariants} className="space-y-5">
             <h3 className="text-sm font-bold uppercase tracking-wider text-white border-b border-slate-800 pb-2">
               About Us
             </h3>
@@ -210,7 +210,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <motion.div
           variants={itemVariants}
-          className="border-t border-slate-800/80 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500"
+          className="border-t border-slate-800/80 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500"
         >
           <p>&copy; {new Date().getFullYear()} Suncart Ltd. All rights reserved.</p>
 
