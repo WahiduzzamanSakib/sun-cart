@@ -57,7 +57,6 @@ The goal of **SunCart** is to build a modern and responsive eCommerce platform f
 ## 📦 NPM Packages Used
 
 - next
-- mongodb
 - better-auth
 - @heroui/react
 - tailwindcss

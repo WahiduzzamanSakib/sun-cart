@@ -2,15 +2,7 @@
 
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import {
-    Button,
-    Input,
-    Label,
-    Modal,
-    TextField,
-    Description,
-    Spinner,
-} from "@heroui/react";
+import { Button, Input, Label, Modal, TextField, Description, Spinner} from "@heroui/react";
 import { BiEdit, BiUser } from "react-icons/bi";
 import { toast } from "react-toastify";
 
@@ -19,12 +11,9 @@ export function UpdateUserModal() {
     const user = session?.user;
 
     const [isLoading, setIsLoading] = useState(false);
-
     const onSubmit = async (e, close) => {
         e.preventDefault();
-
         if (isLoading) return;
-
         const formData = new FormData(e.currentTarget);
 
         const name = formData.get("name")?.toString().trim();
@@ -47,7 +36,6 @@ export function UpdateUserModal() {
         }
 
         setIsLoading(true);
-
         try {
             const { error } = await authClient.updateUser({
                 name,
@@ -76,28 +64,7 @@ export function UpdateUserModal() {
             {/* Trigger */}
             <Button
                 variant="secondary"
-                className="
-                    min-h-11
-                    w-full
-                    rounded-lg
-                    border
-                    border-emerald-200
-                    bg-emerald-50
-                    px-5
-                    font-semibold
-                    text-emerald-700
-                    transition-all
-                    hover:bg-emerald-100
-                    active:scale-[0.98]
-                    focus:ring-2
-                    focus:ring-emerald-500
-                    focus:ring-offset-2
-                    sm:w-auto
-                    dark:border-emerald-900
-                    dark:bg-emerald-950/40
-                    dark:text-emerald-300
-                    dark:hover:bg-emerald-950/70
-                "
+                className=" min-h-11 w-full rounded-lg border border-emerald-200 bg-emerald-50 px-5 font-semibold text-emerald-700 transition-all hover:bg-emerald-100 active:scale-[0.98] focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 sm:w-auto dark:border-emerald-900  dark:bg-emerald-950/40  dark:text-emerald-300 dark:hover:bg-emerald-950/70"
             >
                 <BiEdit className="size-5" />
                 Edit Profile
@@ -114,12 +81,7 @@ export function UpdateUserModal() {
                                 {/* Header */}
                                 <Modal.Header className="border-b border-gray-100 dark:border-gray-800">
                                     <Modal.Icon
-                                        className="
-                                            bg-emerald-100
-                                            text-emerald-700
-                                            dark:bg-emerald-950
-                                            dark:text-emerald-300
-                                        "
+                                        className="bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
                                     >
                                         <BiUser className="size-5" />
                                     </Modal.Icon>
@@ -128,7 +90,6 @@ export function UpdateUserModal() {
                                         <Modal.Heading>
                                             Edit Profile
                                         </Modal.Heading>
-
                                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                             Update your personal information.
                                         </p>
@@ -180,9 +141,6 @@ export function UpdateUserModal() {
                                         >
                                             <Label className="text-sm font-semibold">
                                                 Profile Image URL
-                                                <span className="ml-1 font-normal text-gray-400">
-                                                    (Optional)
-                                                </span>
                                             </Label>
 
                                             <Input
@@ -202,13 +160,7 @@ export function UpdateUserModal() {
                                                 slot="close"
                                                 variant="secondary"
                                                 isDisabled={isLoading}
-                                                className="
-                                                    min-h-11
-                                                    w-full
-                                                    rounded-lg
-                                                    font-semibold
-                                                    sm:w-auto
-                                                "
+                                                className="min-h-11 w-full rounded-lg font-semibold sm:w-auto"
                                             >
                                                 Cancel
                                             </Button>
@@ -216,25 +168,7 @@ export function UpdateUserModal() {
                                             <Button
                                                 type="submit"
                                                 isDisabled={isLoading}
-                                                className="
-                                                    min-h-11
-                                                    w-full
-                                                    rounded-lg
-                                                    bg-emerald-600
-                                                    px-6
-                                                    font-semibold
-                                                    text-white
-                                                    shadow-sm
-                                                    transition-all
-                                                    hover:bg-emerald-700
-                                                    active:scale-[0.98]
-                                                    focus:ring-2
-                                                    focus:ring-emerald-500
-                                                    focus:ring-offset-2
-                                                    dark:bg-emerald-500
-                                                    dark:hover:bg-emerald-600
-                                                    sm:w-auto
-                                                "
+                                                className="min-h-11 w-full rounded-lg bg-emerald-600 px-6 font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-[0.98] focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:bg-emerald-500 dark:hover:bg-emerald-600 sm:w-auto"
                                             >
                                                 {isLoading ? (
                                                     <>
