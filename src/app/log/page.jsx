@@ -71,7 +71,7 @@ export default function SignInPage() {
     };
 
     return (
-        <main className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-emerald-50 via-white to-teal-50 px-4 py-10 sm:py-14">
+        <main className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-emerald-50 via-white to-teal-50 px-4 py-10 sm:py-14 border border-emerald-400">
             <Card
                 className="mx-auto w-full max-w-md border border-emerald-100 bg-white p-5 shadow-lg shadow-emerald-900/5 sm:p-8"
             >

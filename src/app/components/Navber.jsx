@@ -44,16 +44,14 @@ const Navber = () => {
     }
   };
 
-  // =========================
+ 
   // Close Mobile Menu
-  // =========================
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
-  // =========================
+  
   // Navigation Links
-  // =========================
   const navLinks = [
     {
       href: "/",
@@ -72,21 +70,10 @@ const Navber = () => {
     },
   ];
 
-  // =========================
+
   // Desktop Navigation Classes
-  // =========================
-  const getNavClass = (active) => `
-    relative
-    rounded-lg
-    px-3
-    py-2
-    text-sm
-    font-semibold
-    transition-all
-    duration-200
-    focus:outline-none
-    focus:ring-2
-    focus:ring-emerald-300
+  const getNavClass = (active) => ` relative rounded-lg px-3 py-2 text-md font-bold transition-all duration-200
+ focus:outline-none focus:ring-2 focus:ring-emerald-300
     ${
       active
         ? "bg-emerald-100 text-emerald-700"
@@ -100,9 +87,7 @@ const Navber = () => {
         className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
-        {/* =========================
-            Logo / Brand
-        ========================= */}
+        {/*  Logo  */}
         <Link
           href="/"
           onClick={closeMenu}
@@ -113,20 +98,18 @@ const Navber = () => {
             src={logoimg}
             alt="SunCart logo"
             loading="eager"
-            width={38}
-            height={38}
+            width={40}
+            height={40}
             className="rounded-full transition-transform duration-300 group-hover:scale-105"
           />
 
-          <span className="text-lg font-extrabold tracking-tight text-gray-900 transition-colors group-hover:text-emerald-600 sm:text-xl">
+          <span className="text-lg font-extrabold tracking-tight text-gray-900 transition-colors group-hover:text-emerald-600 sm:text-2xl">
             Sun<span className="text-emerald-600">Cart</span>
           </span>
         </Link>
 
-        {/* =========================
-            Desktop Navigation
-        ========================= */}
-        <ul className="hidden items-center gap-1 md:flex">
+        {/*  Desktop Navigation */}
+        <ul className="hidden items-center gap-1 md:flex ">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
@@ -140,16 +123,14 @@ const Navber = () => {
           ))}
         </ul>
 
-        {/* =========================
-            Desktop Auth Controls
-        ========================= */}
+        {/*  Desktop Auth Controls */}
         <div className="hidden items-center md:flex">
           {!user ? (
             <div className="flex items-center gap-2">
               {/* Login */}
               <Link
                 href="/log"
-                className="rounded-lg px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+                className="rounded-lg px-4 py-2 text-md font-bold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-300"
               >
                 Login
               </Link>
@@ -209,9 +190,7 @@ const Navber = () => {
           )}
         </div>
 
-        {/* =========================
-            Mobile Menu Button
-        ========================= */}
+        {/*  Mobile Menu Button */}
         <button
           type="button"
           onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -230,9 +209,7 @@ const Navber = () => {
         </button>
       </nav>
 
-      {/* =========================
-          Mobile Navigation
-      ========================= */}
+      {/*  Mobile Navigation */}
       {isMenuOpen && (
         <div
           id="mobile-navigation"
