@@ -11,10 +11,7 @@ const CardDetails = async ({ params }) => {
         cache: "no-store",
     });
     const data = await res.json();
-
     const product = data.find((p) => p.id == id);
-
-
 
     return (
         <div>
@@ -23,8 +20,8 @@ const CardDetails = async ({ params }) => {
 
                     <div className="border rounded-lg p-4">
                         <Image
-                            src={product.image}
-                            alt={product.name}
+                            src={product?.image}
+                            alt={product?.name}
                             width={500}
                             height={500}
                             className="object-cover rounded-lg"
@@ -34,7 +31,7 @@ const CardDetails = async ({ params }) => {
 
                     <div className="space-y-4">
                         <h1 className="text-3xl font-bold">
-                            {product.name}
+                            {product?.name}
                         </h1>
 
                         <p className="text-gray-600 ">
@@ -42,18 +39,18 @@ const CardDetails = async ({ params }) => {
                         </p>
                         <p className="text-xl font-semibold  ">
                             Brand:    <span className="text-2xl font-bold ">
-                                 {product.brand}
+                                 {product?.brand}
                             </span>
                         </p>
 
                         <p className="text-2xl font-semibold  flex gap-1 items-center">
                             Stock:
-                            <span className="font-bold flex justify-center"><MdProductionQuantityLimits />  {product.stock}</span>
+                            <span className="font-bold flex justify-center"><MdProductionQuantityLimits />  {product?.stock}</span>
                         </p>
                         <p className="text-2xl font-semibold ">
                             Price:
                             <span className="text-2xl font-bold text-green-600 ml-1">
-                                $ {product.price}
+                                $ {product?.price}
                             </span>
                         </p>
 
