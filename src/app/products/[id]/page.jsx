@@ -42,7 +42,7 @@ const CardDetails = async ({ params }) => {
             
             {/* ================= IMAGE SIDE ================= */}
             <div className="p-4 sm:p-6 lg:p-8">
-              <div className="group relative flex min-h-[350px] items-center justify-center overflow-hidden rounded-2xl border border-black/[0.04] bg-[#f5f5f3] sm:min-h-[450px] lg:min-h-[580px]">
+              <div className="group relative flex min-h-[350px] items-center justify-center overflow-hidden rounded-2xl border border-black/[0.04] bg-[#f5f5f3] sm:min-h-[380px] lg:min-h-[480px]">
                 
                 {/* Background glow */}
                 <div className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white blur-3xl transition-transform duration-700 group-hover:scale-125 sm:h-80 sm:w-80" />
@@ -64,7 +64,7 @@ const CardDetails = async ({ params }) => {
 
                 {/* Image label */}
                 <div className="absolute left-4 top-4 z-20 rounded-full bg-black px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white">
-                  Premium
+                  {product.brand}
                 </div>
               </div>
             </div>
@@ -72,13 +72,7 @@ const CardDetails = async ({ params }) => {
             {/* ================= DETAILS SIDE ================= */}
             <div className="flex flex-col justify-center px-5 pb-4 sm:px-8 sm:pb-8 lg:px-10 lg:py-10 xl:px-12">
               
-              {/* Brand */}
-              <div className="mb-3">
-                <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-gray-500">
-                  <span className="h-px w-5 bg-gray-400" />
-                  {product.brand}
-                </span>
-              </div>
+              
 
               {/* Title */}
               <h1 className="max-w-xl text-2xl font-semibold leading-tight tracking-[-0.035em] text-gray-950 sm:text-3xl xl:text-4xl">
@@ -102,7 +96,7 @@ const CardDetails = async ({ params }) => {
 
               {/* Price */}
               <div className="mt-6 flex flex-wrap items-center gap-3">
-                <span className="text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">
+                <span className="text-3xl font-semibold tracking-tight text-gray-950 sm:text-4xl">
                   ${product.price}
                 </span>
                 <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
