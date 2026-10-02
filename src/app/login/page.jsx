@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { GrGoogle } from "react-icons/gr";
 import { toast } from "react-toastify";
 import { motion, useReducedMotion } from "framer-motion";
+import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -175,6 +176,7 @@ export default function SignUpPage() {
               <FieldError />
             </TextField>
 
+          
             {/* Password */}
             <TextField
               isRequired
@@ -205,19 +207,21 @@ export default function SignUpPage() {
               <div className="relative mt-1">
                 <Input
                   placeholder="Create a strong password"
-                  className="min-h-11 pr-20"
                   aria-label="Password"
+                  className="min-h-11 w-full pr-12"
                 />
 
                 <button
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md px-2 py-1 text-xs font-semibold text-emerald-600 hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:hover:bg-emerald-950"
-                  aria-label={
-                    showPassword ? "Hide password" : "Show password"
-                  }
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className=" absolute right-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center border-0 bg-transparent p-1 text-gray-400 outline-none transition-colors hover:text-gray-600 focus:outline-none dark:text-gray-500 dark:hover:text-gray-300"
                 >
-                  {showPassword ? "Hide" : "Show"}
+                  {showPassword ? (
+                    <HiOutlineEyeSlash className="h-5 w-5" />
+                  ) : (
+                    <HiOutlineEye className="h-5 w-5" />
+                  )}
                 </button>
               </div>
 
