@@ -52,8 +52,8 @@ const CardDetails = async ({ params }) => {
                   <Image
                     src={product.image}
                     alt={product.name}
-                    width={600}
-                    height={600}
+                    width={500}
+                    height={500}
                     priority
                     className="h-auto max-h-[330px] w-full max-w-[430px] object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.12)] transition-all duration-700 ease-out group-hover:-translate-y-2 group-hover:scale-105 sm:max-h-[420px] sm:max-w-[500px]"
                   />
@@ -70,7 +70,7 @@ const CardDetails = async ({ params }) => {
             </div>
 
             {/* ================= DETAILS SIDE ================= */}
-            <div className="flex flex-col justify-center px-5 pb-7 sm:px-8 sm:pb-8 lg:px-10 lg:py-10 xl:px-12">
+            <div className="flex flex-col justify-center px-5 pb-4 sm:px-8 sm:pb-8 lg:px-10 lg:py-10 xl:px-12">
               
               {/* Brand */}
               <div className="mb-3">
@@ -81,7 +81,7 @@ const CardDetails = async ({ params }) => {
               </div>
 
               {/* Title */}
-              <h1 className="max-w-xl text-3xl font-semibold leading-tight tracking-[-0.035em] text-gray-950 sm:text-4xl xl:text-5xl">
+              <h1 className="max-w-xl text-2xl font-semibold leading-tight tracking-[-0.035em] text-gray-950 sm:text-3xl xl:text-4xl">
                 {product.name}
               </h1>
 
