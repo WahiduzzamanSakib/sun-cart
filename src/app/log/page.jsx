@@ -218,7 +218,7 @@ export default function SignInPage() {
                 </Form>
 
                 {/*Divider */}
-                <div className="my-6 flex items-center gap-3">
+                <div className="my-3 flex items-center gap-3">
                     <div className="h-px flex-1 bg-gray-200" />
 
                     <span className="text-xs font-medium uppercase tracking-wider text-gray-400">
@@ -251,7 +251,7 @@ export default function SignInPage() {
                 </Button>
 
                 {/*  Footer Text */}
-                <p className="mt-6 text-center text-xs leading-5 text-gray-500">
+                <p className=" text-center text-xs leading-5 text-gray-500">
                     By continuing, you agree to our terms and privacy policy.
                 </p>
             </Card>

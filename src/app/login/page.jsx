@@ -275,7 +275,7 @@ export default function SignUpPage() {
           </Form>
 
           {/* Divider */}
-          <div className="relative my-7">
+          <div className="relative my-2">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-200 dark:border-gray-800" />
             </div>
@@ -301,7 +301,7 @@ export default function SignUpPage() {
               onClick={handleGoogle}
               variant="bordered"
               isDisabled={isLoading || isGoogleLoading}
-              className="min-h-11 w-full rounded-lg border-gray-300 font-semibold transition-colors hover:bg-gray-50 active:scale-[0.99] focus:ring-2 focus:ring-emerald-500 dark:border-gray-700 dark:hover:bg-gray-800"
+              className="min-h-11 w-full rounded-lg border-gray-300 font-semibold transition-colors hover:bg-gray-50 active:scale-[0.99] focus:ring-2 focus:ring-emerald-500  dark:border-gray-700 dark:hover:bg-gray-800"
             >
               {isGoogleLoading ? (
                 <>
@@ -318,7 +318,7 @@ export default function SignUpPage() {
           </motion.div>
 
           {/* Footer Note */}
-          <p className="mt-6 text-center text-xs leading-5 text-gray-500 dark:text-gray-400">
+          <p className=" text-center text-xs leading-5 text-gray-500 dark:text-gray-400">
             By creating an account, you agree to our terms and privacy policy.
           </p>
         </Card>
