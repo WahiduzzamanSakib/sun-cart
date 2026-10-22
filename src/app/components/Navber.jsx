@@ -68,6 +68,11 @@ const Navber = () => {
       label: "Profile",
       active: pathname === "/profile",
     },
+    {
+      href: "/aboutus",
+      label: "About Us",
+      active: pathname === "/aboutus",
+    },
   ];
 
 
